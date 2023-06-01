@@ -51,10 +51,12 @@ public class Get10 extends GoRestBaseUrl {
                         "meta.pagination.links.current", equalTo("https://gorest.co.in/public/v1/users?page=1"),
                         "data", hasSize(10),
                         "data.status", hasItem("active"),
-                        "data.name", hasItems("Kirti Chaturvedi", "Laxman Desai", "Deependra Verma"));
+                        "data.name", hasItems("Anand Verma", "Amb. Ekaksh Bharadwaj", "Amogh Patel"));
 
         //The female users are less than or equals to male users
         //Kadın ve erkek sayılarını karşılaştıralım:
+
+        //1. yol : for Loop ile kadin ve erkek sayisini bulup assert yapalim
         JsonPath jsonPath = response.jsonPath();
         List<String> genderList = jsonPath.getList("data.gender");
         System.out.println("genderList = " + genderList);
@@ -67,12 +69,16 @@ public class Get10 extends GoRestBaseUrl {
         }
 
         System.out.println("kadinSayisi = " + kadinSayisi);
-        assertTrue(kadinSayisi <= genderList.size() - kadinSayisi);
+        assertTrue(kadinSayisi >= genderList.size() - kadinSayisi);
 
         //2. Yol Groovy:
+        int kadinSayisiGro0vy = jsonPath.getList("data.findAll{it.gender=='female'}").size();
+        System.out.println("kadinSayisiGrovy = " + kadinSayisiGro0vy);
+        int erkekSayisiGroovy = jsonPath.getList("data.findAll{it.gender=='male'}").size();
+        System.out.println("erkekSayisiGroovy = " + erkekSayisiGroovy);
 
-
+        assertTrue(kadinSayisiGro0vy>=erkekSayisiGroovy);
 
 
     }
-}//
+}

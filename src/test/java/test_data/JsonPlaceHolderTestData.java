@@ -22,5 +22,14 @@ public class JsonPlaceHolderTestData {
 
     }
 
+    public static String expectedDatainString(int userId,String title,boolean completed){
+        return  "{\"userId\": "+userId+",\n" +
+                "  \"id\": 198,\n" +
+                " \"title\": \""+title+"\",\n" +
+                " \"completed\":"+completed+"}";
+
+    }
+
+
 
 }
