@@ -8,6 +8,7 @@ import pojos.JsonPlaceHolderPojo;
 import test_data.JsonPlaceHolderTestData;
 
 import static io.restassured.RestAssured.given;
+import static org.testng.AssertJUnit.assertEquals;
 
 public class Get13_ObjectMapper_Pojo extends JsonPlaceHolderBase_Url {
       /*
@@ -38,8 +39,13 @@ public class Get13_ObjectMapper_Pojo extends JsonPlaceHolderBase_Url {
        Response response = given(spec).get("{first}/{second}");
        response.prettyPrint();
 
-       
-
+       //Do assertion
+     JsonPlaceHolderPojo actualData = ObjectMapperUtils.convertJsonToJava(response.asString(),JsonPlaceHolderPojo.class);
+        System.out.println("actualData = " + actualData);
+        assertEquals(200,response.statusCode());
+        assertEquals(expextedData.getUserId(),actualData.getUserId());
+        assertEquals(expextedData.getTitle(),actualData.getTitle());
+        assertEquals(expextedData.getCompleted(),actualData.getCompleted());
 
     }
 }
