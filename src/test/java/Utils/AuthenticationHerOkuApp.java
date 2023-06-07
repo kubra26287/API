@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
-public class AuthenticationHerOkuAppToken {
+public class AuthenticationHerOkuApp {
     public static String generateToken(){
         String body ="{\n" +
                 "    \"username\" : \"admin\",\n" +

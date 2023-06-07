@@ -4,14 +4,14 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class CountryPojo_Satate {
+public class Country {
     private String name;
     private List<StatePojo> states;
 
-    public CountryPojo_Satate() {
+    public Country() {
     }
 
-    public CountryPojo_Satate(String name, List<StatePojo> states) {
+    public Country(String name, List<StatePojo> states) {
         this.name = name;
         this.states = states;
     }

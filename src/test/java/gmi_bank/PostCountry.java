@@ -1,17 +1,17 @@
 package gmi_bank;
 
 import Base_Urls.GmiBankBaseUrl;
+import Utils.ObjectMapperUtils;
 import io.restassured.response.Response;
 import org.junit.Test;
-import pojos.CountryPojo_Satate;
+import pojos.Country;
 import pojos.StatePojo;
 
-import javax.swing.*;
-import javax.swing.plaf.nimbus.State;
 import java.util.ArrayList;
 import java.util.List;
 
 import static io.restassured.RestAssured.given;
+import static org.testng.AssertJUnit.assertEquals;
 
 public class PostCountry extends GmiBankBaseUrl {
     /*
@@ -79,12 +79,24 @@ And body:
         stateList.add(state2);
         stateList.add(state3);
 
-        CountryPojo_Satate expectedData = new CountryPojo_Satate("Banane",stateList);
+        Country expectedData = new Country("Banane",stateList);
         System.out.println("expectedData = " + expectedData);
 
         //send the request get the response
      Response response = given(spec).body(expectedData).post("{first}/{second}");
      response.prettyPrint();
+
+     //do assertion
+      Country actualData =  ObjectMapperUtils.convertJsonToJava(response.asString(), Country.class);
+        System.out.println("actualData = " + actualData);
+        assertEquals(201,response.statusCode());
+        assertEquals(expectedData.getName(),actualData.getName());
+        assertEquals(state1.getName(),actualData.getStates().get(0).getName());
+        assertEquals(state1.getId(),actualData.getStates().get(0).getId());
+        assertEquals(state2.getName(),actualData.getStates().get(1).getName());
+        assertEquals(state2.getId(),actualData.getStates().get(1).getId());
+        assertEquals(state3.getName(),actualData.getStates().get(2).getName());
+        assertEquals(state3.getId(),actualData.getStates().get(2).getId());
 
 
     }
